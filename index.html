@@ -25,11 +25,12 @@ select,input[type=text],input[type=number],input[type=date]{padding:11px;border:
 .notice{padding:12px;border-radius:12px;background:#fff7df;color:#735519;font-size:14px}
 footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 @media(max-width:650px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(3,1fr)}.kpi strong{font-size:19px}header{padding:15px}.headerin{align-items:flex-start}.badge{font-size:11px}.brand{font-size:22px}main{padding:13px 11px}.card{padding:13px}table{font-size:14px}th,td{padding:8px 5px}}
+ .grid label{display:grid;gap:6px}.notice{line-height:1.5}.resultgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:12px}.resultbox{background:#e8efe7;border-radius:12px;padding:12px}.resultbox b{display:block;font-size:20px}.resultbox span{font-size:12px;color:#657269}@media(max-width:650px){.resultgrid{grid-template-columns:repeat(2,1fr)}}
 </style></head>
 <body>
 <header><div class="headerin"><div><div class="brand">🌿 FORMA</div><div class="sub">Trening • dieta • progres</div></div><div class="badge">Cel: masa mięśniowa</div></div>
 <nav>
-<button class="active" data-page="home">🏠 Start</button><button data-page="training">🏋️ Trening</button><button data-page="log">📝 Dziennik</button><button data-page="diet">🍽️ Dieta</button><button data-page="shopping">🛒 Zakupy</button><button data-page="progress">📈 Postępy</button><button data-page="calendar">📅 Kalendarz</button><button data-page="foodlog">🥗 Licznik</button>
+<button class="active" data-page="home">🏠 Start</button><button data-page="training">🏋️ Trening</button><button data-page="log">📝 Dziennik</button><button data-page="diet">🍽️ Dieta</button><button data-page="shopping">🛒 Zakupy</button><button data-page="progress">📈 Postępy</button><button data-page="calendar">📅 Kalendarz</button><button data-page="foodlog">🥗 Licznik</button><button data-page="tools">🧮 Kalkulator</button><button data-page="backup">💾 Kopia danych</button>
 </nav></header>
 <main>
 <section class="page active" id="home">
@@ -57,7 +58,7 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <div class="card"><h2>Proste zasady</h2><ul><li>4 posiłki dziennie.</li><li>Wybieraj mleko/produkty bez laktozy lub napój sojowy.</li><li>Jeśli średnia masa nie rośnie przez 2–3 tygodnie, dodaj 150–200 kcal.</li><li>Po treningu zjedz normalny posiłek z białkiem i węglowodanami.</li></ul></div>
 </section>
 <section class="page" id="shopping">
-<h1>Lista zakupów</h1><p class="muted">Odhacz produkty w sklepie. Możesz dopisać własne. Lista zostaje zapisana.</p><div class="card"><div id="shoppingList" class="checklist"></div><div class="btnrow"><input id="newItem" type="text" placeholder="Dodaj produkt…" /><button class="btn" onclick="addShoppingItem()">Dodaj</button><button class="btn secondary" onclick="resetShopping()">Odznacz wszystko</button></div></div>
+<h1>Lista zakupów</h1><p class="muted">Odhacz produkty w sklepie. Możesz dopisać własne. Lista zostaje zapisana.</p><div class="card"><div id="shoppingList" class="checklist"></div><div class="btnrow"><input id="newItem" type="text" placeholder="Dodaj produkt…" /><button class="btn" onclick="addShoppingItem()">Dodaj</button><button class="btn secondary" onclick="resetShopping()">Odznacz wszystko</button><button class="btn secondary" onclick="generateShoppingFromMenu()">Utwórz zakupy z jadłospisu</button></div></div>
 </section>
 <section class="page" id="progress">
 <h1>Postępy</h1><p class="muted">Mierz się rano, po toalecie, w podobnych warunkach. Patrz na średnią tygodniową.</p>
@@ -76,13 +77,36 @@ footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
 <div class="card"><h2>Dodaj pozycję</h2><div class="grid"><label>Produkt / posiłek<input type="text" id="foodName" placeholder="np. ryż z kurczakiem"></label><label>Kalorie<input type="number" id="foodKcal" placeholder="kcal"></label><label>Białko (g)<input type="number" id="foodProtein" placeholder="g"></label><label>Węglowodany (g)<input type="number" id="foodCarbs" placeholder="g"></label><label>Tłuszcze (g)<input type="number" id="foodFat" placeholder="g"></label></div><div class="btnrow"><button class="btn" onclick="addFood()">Dodaj</button><button class="btn secondary" onclick="clearTodayFood()">Usuń dzisiejsze wpisy</button></div></div>
 <div class="card"><h2>Dzisiejsze spożycie</h2><div id="foodSummary"></div><div id="foodEntries"></div></div>
 </section>
+
+<section class="page" id="tools">
+<h1>Kalkulator i progresja</h1><p class="muted">Ustaw dane, aby obliczyć orientacyjne zapotrzebowanie. Wynik jest punktem startowym — obserwuj średnią masę ciała i samopoczucie.</p>
+<div class="card"><h2>Kalkulator kalorii i makroskładników</h2>
+<div class="grid">
+<label>Płeć <select id="calcSex"><option value="m">Mężczyzna</option><option value="f">Kobieta</option></select></label>
+<label>Wiek (lata) <input id="calcAge" type="number" min="15" max="100" placeholder="np. 30"></label>
+<label>Wzrost (cm) <input id="calcHeight" type="number" min="120" max="230" placeholder="np. 180"></label>
+<label>Masa ciała (kg) <input id="calcWeight" type="number" min="35" max="250" step=".1" placeholder="np. 80"></label>
+<label>Aktywność <select id="calcActivity"><option value="1.2">Niska — głównie siedząca</option><option value="1.375">Lekka — 1–3 treningi/tydz.</option><option value="1.55" selected>Umiarkowana — praca w ruchu i treningi</option><option value="1.725">Wysoka — ciężka praca i częste treningi</option><option value="1.9">Bardzo wysoka — bardzo ciężka aktywność</option></select></label>
+<label>Cel <select id="calcGoal"><option value="300">Budowa masy (+300 kcal)</option><option value="150">Powolna masa (+150 kcal)</option><option value="0">Utrzymanie</option><option value="-300">Redukcja (−300 kcal)</option></select></label>
+</div><div class="btnrow"><button class="btn" onclick="calculateTargets()">Oblicz i zapisz cele</button></div><div id="calcResult" class="notice" style="margin-top:12px">Wprowadź wiek, wzrost i masę ciała, a następnie oblicz cele.</div>
+<p class="muted">Wzór Mifflina–St Jeora; to szacunek, nie pomiar medyczny. Nie stosuj agresywnej redukcji bez konsultacji ze specjalistą.</p>
+</div>
+<div class="card"><h2>Twoje aktualne cele</h2><div id="targetSummary"></div></div>
+<div class="card"><h2>Podpowiedzi progresji</h2><p class="muted">Aplikacja porównuje ostatnie zapisane wyniki. Jeśli osiągasz górny zakres powtórzeń we wszystkich seriach, sugeruje mały wzrost obciążenia. Zwiększaj ciężar tylko przy poprawnej technice.</p><div id="progressionAdvice"></div></div>
+</section>
+<section class="page" id="backup">
+<h1>Kopie zapasowe</h1><p class="muted">Eksport obejmuje dane zapisane przez aplikację w tej przeglądarce: treningi, pomiary, jedzenie, zakupy, kalendarz i ustawienia.</p>
+<div class="card"><h2>Zapisz kopię</h2><p>Utwórz plik JSON i zachowaj go w pamięci tabletu lub na Dysku Google.</p><button class="btn" onclick="exportBackup()">Pobierz kopię zapasową</button></div>
+<div class="card"><h2>Przywróć kopię</h2><p class="notice">Import zastąpi aktualne dane aplikacji danymi z pliku. Przed importem pobierz aktualną kopię.</p><input type="file" id="backupFile" accept="application/json"><div class="btnrow"><button class="btn" onclick="importBackup()">Przywróć dane z pliku</button></div></div>
+<div class="card"><h2>Ważne</h2><p>Plik strony i dane są oddzielne. Po aktualizacji aplikacji dane zwykle pozostają w pamięci przeglądarki, ale wyczyszczenie danych witryny lub zmiana przeglądarki może je usunąć. Kopię zapisuj regularnie.</p></div>
+</section>
 </main><footer>FORMA • Twoje dane zapisują się lokalnie na tym urządzeniu.</footer>
 <script>
 const plans={
 A:[["Wyciskanie sztangi leżąc",4,"8–10"],["Przysiad ze sztangą",3,"8–10"],["Wiosłowanie sztangą",3,"10"],["Wyciskanie hantli siedząc",3,"10"],["Uginanie ramion (hantle)",3,"12"],["Plank",3,"40–60 s"]],
 B:[["Martwy ciąg rumuński",3,"8–10"],["Wyciskanie hantli skos",3,"10"],["Wiosłowanie hantlą jednorącz",3,"10–12"],["Wykroki z hantlami",2,"10 / noga"],["Unoszenie hantli bokiem",3,"12–15"],["Uginanie młotkowe",2,"12"],["Dead bug",3,"10 / strona"]],
 C:[["Przysiad goblet",3,"12"],["Wyciskanie sztangi leżąc",3,"8–10"],["Wiosłowanie sztangą",3,"10"],["Hip thrust ze sztangą",3,"12"],["Francuskie wyciskanie hantla",2,"12"],["Uginanie ramion ze sztangą",2,"12"],["Unoszenie nóg leżąc",3,"12–15"]]};
-function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===p));if(p==='log')renderLog();if(p==='diet')renderMenu();if(p==='shopping')renderShopping();if(p==='progress'){renderMeasures();drawWeightChart()}if(p==='calendar')renderCalendar();if(p==='foodlog')renderFood();window.scrollTo({top:0,behavior:'smooth'})}
+function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===p));if(p==='log')renderLog();if(p==='diet')renderMenu();if(p==='shopping')renderShopping();if(p==='progress'){renderMeasures();drawWeightChart()}if(p==='calendar')renderCalendar();if(p==='foodlog')renderFood();if(p==='tools'){renderTargets();renderProgression()}window.scrollTo({top:0,behavior:'smooth'})}
 document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
 function renderWorkout(){let k=document.getElementById('workoutSelect').value;document.getElementById('workoutContent').innerHTML='<h2>Trening '+k+'</h2><table><tr><th>Ćwiczenie</th><th>Serie</th><th>Powtórzenia</th></tr>'+plans[k].map(e=>`<tr><td>${e[0]}</td><td>${e[1]}</td><td>${e[2]}</td></tr>`).join('')+'</table>'}
 const menus={
@@ -158,8 +182,8 @@ function addFood(){
 function renderFood(){
  let today=new Date().toISOString().slice(0,10),arr=foodData().filter(x=>x.date===today),sum={kcal:0,protein:0,carbs:0,fat:0};
  arr.forEach(x=>{sum.kcal+=x.kcal;sum.protein+=x.protein;sum.carbs+=x.carbs;sum.fat+=x.fat});
- let pct=Math.min(100,Math.round(sum.kcal/3200*100));
- document.getElementById('foodSummary').innerHTML=`<div class="kpis"><div class="kpi"><strong>${sum.kcal} / 3200</strong><span>kcal • ${pct}% celu</span></div><div class="kpi"><strong>${sum.protein} / 170 g</strong><span>białko</span></div><div class="kpi"><strong>${sum.carbs} g</strong><span>węglowodany</span></div></div><div style="height:12px;background:#e5ebe3;border-radius:10px;overflow:hidden"><div style="height:100%;width:${pct}%;background:#5c8b55"></div></div><p>Tłuszcze: <b>${sum.fat} / 90 g</b></p>`;
+ let tg=getTargets(),pct=Math.min(100,Math.round(sum.kcal/tg.kcal*100));
+ document.getElementById('foodSummary').innerHTML=`<div class="kpis"><div class="kpi"><strong>${sum.kcal} / ${tg.kcal}</strong><span>kcal • ${pct}% celu</span></div><div class="kpi"><strong>${sum.protein} / ${tg.protein} g</strong><span>białko</span></div><div class="kpi"><strong>${sum.carbs} g</strong><span>węglowodany</span></div></div><div style="height:12px;background:#e5ebe3;border-radius:10px;overflow:hidden"><div style="height:100%;width:${pct}%;background:#5c8b55"></div></div><p>Tłuszcze: <b>${sum.fat} / ${tg.fat} g</b></p>`;
  document.getElementById('foodEntries').innerHTML=arr.length?'<table><tr><th>Posiłek</th><th>Kcal</th><th>B</th><th>W</th><th>T</th></tr>'+arr.map((x,i)=>`<tr><td>${x.name}<button class="btn danger" style="padding:4px 8px;margin-left:5px" onclick="deleteFood(${i})">×</button></td><td>${x.kcal}</td><td>${x.protein}</td><td>${x.carbs}</td><td>${x.fat}</td></tr>`).join('')+'</table>':'<p class="muted">Brak wpisów na dziś. Dodaj pierwszy posiłek.</p>';
 }
 function deleteFood(i){let today=new Date().toISOString().slice(0,10),all=foodData(),inds=all.map((x,n)=>x.date===today?n:null).filter(n=>n!==null);all.splice(inds[i],1);localStorage.foodEntries=JSON.stringify(all);renderFood()}
@@ -176,5 +200,48 @@ function drawWeightChart(){
 }
 
 // enhanced initial setup
-const currentMonth=new Date().toISOString().slice(0,7);document.getElementById("calMonth").value=currentMonth;renderCalendar();renderFood();if(localStorage.reminders==="on"){document.getElementById("reminderTime").value=localStorage.reminderTime||"17:30";document.getElementById("reminderStatus").textContent="Przypomnienia są włączone.";}window.addEventListener("resize",drawWeightChart);drawWeightChart();
+document.getElementById("logDate").value=new Date().toISOString().slice(0,10);const currentMonth=new Date().toISOString().slice(0,7);document.getElementById("calMonth").value=currentMonth;renderCalendar();renderFood();if(localStorage.reminders==="on"){document.getElementById("reminderTime").value=localStorage.reminderTime||"17:30";document.getElementById("reminderStatus").textContent="Przypomnienia są włączone.";}window.addEventListener("resize",drawWeightChart);drawWeightChart();
+
+// FORMA PLUS: cele żywieniowe, progresja i kopie danych
+function getTargets(){try{return JSON.parse(localStorage.formaTargets||'{"kcal":3200,"protein":170,"fat":90,"carbs":428}') }catch(e){return {kcal:3200,protein:170,fat:90,carbs:428}}}
+function renderTargets(){let t=getTargets();let el=document.getElementById('targetSummary');if(el)el.innerHTML=`<div class="resultgrid"><div class="resultbox"><b>${t.kcal}</b><span>kcal / dzień</span></div><div class="resultbox"><b>${t.protein} g</b><span>białko</span></div><div class="resultbox"><b>${t.fat} g</b><span>tłuszcze</span></div><div class="resultbox"><b>${t.carbs} g</b><span>węglowodany</span></div></div>`}
+function calculateTargets(){
+ let age=Number(document.getElementById('calcAge').value),h=Number(document.getElementById('calcHeight').value),w=Number(document.getElementById('calcWeight').value),sex=document.getElementById('calcSex').value,act=Number(document.getElementById('calcActivity').value),goal=Number(document.getElementById('calcGoal').value);
+ if(!age||!h||!w||age<15||h<120||w<35){alert('Uzupełnij poprawnie wiek, wzrost i masę ciała.');return}
+ let bmr=10*w+6.25*h-5*age+(sex==='m'?5:-161),maint=Math.round(bmr*act),kcal=Math.max(1200,maint+goal),protein=Math.round(w*2),fat=Math.round(w*1.0),carbs=Math.max(0,Math.round((kcal-protein*4-fat*9)/4));
+ let t={kcal,protein,fat,carbs};localStorage.formaTargets=JSON.stringify(t);localStorage.formaProfile=JSON.stringify({age,h,w,sex,act,goal});
+ document.getElementById('calcResult').innerHTML=`Szacunkowe utrzymanie: <b>${maint} kcal</b>. Nowy cel: <b>${kcal} kcal/dzień</b>. Cele makro: ${protein} g białka, ${fat} g tłuszczu i ${carbs} g węglowodanów.`;
+ renderTargets();renderFood();
+}
+function renderProgression(){
+ let el=document.getElementById('progressionAdvice');if(!el)return;let logs=getLogs(),out=[];
+ Object.keys(plans).forEach(k=>plans[k].forEach(ex=>{
+  let hits=[];logs.filter(x=>x.workout===k).forEach(l=>{let v=(l.items||[]).find(y=>y.exercise===ex[0]);if(v)hits.push({date:l.date,weight:Number(v.weight),reps:String(v.reps||'')})});
+  if(!hits.length)return;let last=hits[0],nums=last.reps.match(/\d+/g)||[],range=(String(ex[2]).match(/\d+/g)||[]).map(Number),upper=range.length?Math.max(...range):12;
+  let allTop=nums.length>0&&nums.every(n=>Number(n)>=upper);
+  let msg=allTop?'Możesz spróbować zwiększyć ciężar o 1–2,5 kg, jeśli technika była poprawna.':'Najpierw spróbuj dołożyć 1 powtórzenie w seriach, zachowując technikę.';
+  out.push(`<div class="exercise"><b>${ex[0]}</b><div class="muted">Trening ${k} • ostatni zapis: ${last.date} • ${last.weight||'—'} kg • ${last.reps||'brak powtórzeń'}</div>${msg}</div>`);
+ }));
+ el.innerHTML=out.length?out.join(''):'<p class="muted">Zapisz co najmniej jeden trening, a pojawią się podpowiedzi dla ćwiczeń.</p>';
+}
+function generateShoppingFromMenu(){
+ let names=[];Object.values(menus).forEach(day=>day.forEach(meal=>{String(meal[1]).split(',').forEach(part=>{let n=part.trim();if(n&& !names.some(x=>x.toLowerCase()===n.toLowerCase()))names.push(n)})}));
+ if(!names.length){alert('Nie znaleziono składników jadłospisu.');return}
+ let a=getShop().filter(x=>x.cat!=='Jadłospis');names.forEach((name,i)=>a.push({id:Date.now()+i,name,cat:'Jadłospis',done:false}));
+ localStorage.shopItems=JSON.stringify(a);renderShopping();alert('Lista zakupów została uzupełniona składnikami z 7-dniowego jadłospisu.');
+}
+function exportBackup(){
+ let data={app:'FORMA',version:2,createdAt:new Date().toISOString(),storage:{}};
+ for(let i=0;i<localStorage.length;i++){let k=localStorage.key(i);data.storage[k]=localStorage.getItem(k)}
+ let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='forma-kopia-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
+}
+function importBackup(){
+ let f=document.getElementById('backupFile').files[0];if(!f){alert('Najpierw wybierz plik kopii JSON.');return}
+ let reader=new FileReader();reader.onload=()=>{try{let d=JSON.parse(reader.result);if(d.app!=='FORMA'||!d.storage||typeof d.storage!=='object')throw new Error('bad');if(!confirm('Import zastąpi obecne dane aplikacji. Czy kontynuować?'))return;localStorage.clear();Object.entries(d.storage).forEach(([k,v])=>localStorage.setItem(k,String(v)));alert('Dane przywrócone. Aplikacja zostanie odświeżona.');location.reload()}catch(e){alert('Nie udało się odczytać kopii. Wybierz plik JSON utworzony przez aplikację FORMA.')}};
+ reader.readAsText(f);
+}
+// Aktualizuj sugestie po zapisaniu treningu i historię celów
+const _saveWorkoutLog=saveWorkoutLog;
+saveWorkoutLog=function(){_saveWorkoutLog();renderProgression()};
+
 </script></body></html>
