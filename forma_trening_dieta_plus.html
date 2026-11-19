@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#142d24"><title>Forma — trening i dieta</title>
+<style>
+:root{--bg:#f3f5f1;--ink:#17251d;--muted:#657269;--green:#214c35;--lime:#c8e58c;--card:#fff;--line:#e2e8e1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font:16px/1.45 system-ui,-apple-system,Segoe UI,sans-serif;color:var(--ink)}
+header{background:var(--green);color:#fff;padding:22px 20px 18px;position:sticky;top:0;z-index:3}
+.headerin{max-width:1100px;margin:auto;display:flex;justify-content:space-between;align-items:center;gap:12px}.brand{font-weight:850;font-size:25px;letter-spacing:.2px}.sub{color:#d4e3d7;font-size:13px}.badge{background:var(--lime);color:#183523;padding:8px 12px;border-radius:30px;font-weight:750;font-size:13px}
+nav{max-width:1100px;margin:12px auto 0;display:flex;gap:8px;overflow:auto;padding-bottom:2px}
+nav button{border:1px solid #55705e;background:#315941;color:#fff;padding:11px 15px;border-radius:13px;font-weight:700;white-space:nowrap;cursor:pointer}
+nav button.active{background:var(--lime);color:#173523;border-color:var(--lime)}
+main{max-width:1100px;margin:auto;padding:18px 16px 45px}.page{display:none}.page.active{display:block}
+h1{font-size:25px;margin:6px 0 3px}h2{font-size:20px;margin:8px 0 12px}h3{font-size:17px;margin:3px 0 9px}.muted{color:var(--muted);font-size:14px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;box-shadow:0 2px 8px #13251a08;margin-bottom:14px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:15px 0}.kpi{background:#e8efe7;border-radius:14px;padding:13px}.kpi strong{display:block;font-size:22px}.kpi span{font-size:13px;color:var(--muted)}
+table{width:100%;border-collapse:collapse;font-size:15px}th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);vertical-align:middle}th{font-size:13px;color:var(--muted);font-weight:700}td input{width:75px;max-width:100%;padding:9px;border:1px solid #d5ddd4;border-radius:9px;font-size:16px}
+.btn{background:var(--green);color:white;border:0;border-radius:12px;padding:12px 15px;font-size:15px;font-weight:750;cursor:pointer}.btn.secondary{background:#e6ede5;color:var(--green)}.btn.danger{background:#fae9e5;color:#8c3023}.btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+select,input[type=text],input[type=number],input[type=date]{padding:11px;border:1px solid #d5ddd4;border-radius:10px;background:#fff;font-size:16px;color:var(--ink)}select{min-width:130px}
+.checklist{display:grid;gap:9px}.checkitem{display:flex;gap:11px;align-items:center;padding:10px;background:#f6f8f5;border-radius:11px}.checkitem input{width:22px;height:22px;accent-color:var(--green)}.checkitem.done span{text-decoration:line-through;color:#788278}
+.tag{display:inline-block;background:#e8efe7;color:#315941;padding:4px 8px;border-radius:7px;font-size:12px;font-weight:700}
+.exercise{margin:0 0 12px;padding:12px;background:#f7f9f6;border-radius:12px}.exercise table td:first-child{font-weight:650}
+.progressrow{display:flex;gap:8px;flex-wrap:wrap;align-items:center}.progressrow input{width:130px}
+.notice{padding:12px;border-radius:12px;background:#fff7df;color:#735519;font-size:14px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:20px}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(3,1fr)}.kpi strong{font-size:19px}header{padding:15px}.headerin{align-items:flex-start}.badge{font-size:11px}.brand{font-size:22px}main{padding:13px 11px}.card{padding:13px}table{font-size:14px}th,td{padding:8px 5px}}
+</style></head>
+<body>
+<header><div class="headerin"><div><div class="brand">🌿 FORMA</div><div class="sub">Trening • dieta • progres</div></div><div class="badge">Cel: masa mięśniowa</div></div>
+<nav>
+<button class="active" data-page="home">🏠 Start</button><button data-page="training">🏋️ Trening</button><button data-page="log">📝 Dziennik</button><button data-page="diet">🍽️ Dieta</button><button data-page="shopping">🛒 Zakupy</button><button data-page="progress">📈 Postępy</button><button data-page="calendar">📅 Kalendarz</button><button data-page="foodlog">🥗 Licznik</button>
+</nav></header>
+<main>
+<section class="page active" id="home">
+<h1>Twój panel</h1><p class="muted">Wszystko w jednym miejscu. Zaznacz wykonane rzeczy i zapisuj wyniki.</p>
+<div class="kpis"><div class="kpi"><strong>~3200</strong><span>kcal / dzień</span></div><div class="kpi"><strong>170 g</strong><span>białko</span></div><div class="kpi"><strong>4</strong><span>posiłki dziennie</span></div></div>
+<div class="grid"><div class="card"><h2>Plan tygodnia</h2><table><tr><th>Dzień</th><th>Plan</th></tr><tr><td>Poniedziałek</td><td><span class="tag">Trening A</span></td></tr><tr><td>Wtorek</td><td>Odpoczynek / spacer</td></tr><tr><td>Środa</td><td><span class="tag">Trening B</span></td></tr><tr><td>Czwartek</td><td>Odpoczynek</td></tr><tr><td>Piątek</td><td><span class="tag">Trening C</span></td></tr><tr><td>Weekend</td><td>Regeneracja</td></tr></table></div>
+<div class="card"><h2>Na dziś</h2><div id="todayTasks" class="checklist"></div><p class="muted">Zaznaczenia resetują się każdego dnia.</p></div></div>
+<div class="card"><h2>Szybki start</h2><div class="btnrow"><button class="btn" onclick="showPage('training')">Otwórz trening</button><button class="btn secondary" onclick="showPage('shopping')">Lista zakupów</button></div></div>
+</section>
+<section class="page" id="training">
+<h1>Plan treningowy</h1><p class="muted">Wybierz trening. Wykonuj serie z zapasem ok. 2 powtórzeń. Odpoczynek 2–3 min w ćwiczeniach głównych.</p>
+<div class="card"><label for="workoutSelect"><b>Wybierz trening:</b></label> <select id="workoutSelect" onchange="renderWorkout()"><option value="A">Trening A — poniedziałek</option><option value="B">Trening B — środa</option><option value="C">Trening C — piątek</option></select><div id="workoutContent"></div></div>
+<div class="notice">Rozgrzewka 8–10 minut. Przy ciężkim dniu w pracy zmniejsz liczbę serii. Przy wyciskaniu i przysiadach używaj zabezpieczeń.</div>
+</section>
+<section class="page" id="log">
+<h1>Dziennik treningowy</h1><p class="muted">Zapisuj ćwiczenie, ciężar i wykonane powtórzenia. Historia jest przechowywana w przeglądarce.</p>
+<div class="card"><div class="progressrow"><label>Data <input type="date" id="logDate"></label><label>Trening <select id="logWorkout"><option>A</option><option>B</option><option>C</option></select></label></div>
+<div id="logExercises"></div><div class="btnrow"><button class="btn" onclick="saveWorkoutLog()">Zapisz trening</button></div></div>
+<div class="card"><h2>Historia treningów</h2><div id="history"></div><button class="btn secondary" onclick="clearHistory()">Usuń historię</button></div>
+</section>
+<section class="page" id="diet">
+<h1>Jadłospis</h1><p class="muted">Cel startowy: około 3200 kcal, 170 g białka. Zaznacz posiłki, które zjadłeś.</p>
+<div class="kpis"><div class="kpi"><strong>3200</strong><span>kcal orientacyjnie</span></div><div class="kpi"><strong>170 g</strong><span>białko</span></div><div class="kpi"><strong>90 g</strong><span>tłuszcze</span></div></div>
+<div class="card"><label><b>Dzień jadłospisu:</b> <select id="menuDay" onchange="renderMenu()"><option value="1">Dzień 1</option><option value="2">Dzień 2</option><option value="3">Dzień 3</option><option value="4">Dzień 4</option><option value="5">Dzień 5</option><option value="6">Dzień 6</option><option value="7">Dzień 7</option></select></label><div id="menuContent"></div></div>
+<div class="card"><h2>Proste zasady</h2><ul><li>4 posiłki dziennie.</li><li>Wybieraj mleko/produkty bez laktozy lub napój sojowy.</li><li>Jeśli średnia masa nie rośnie przez 2–3 tygodnie, dodaj 150–200 kcal.</li><li>Po treningu zjedz normalny posiłek z białkiem i węglowodanami.</li></ul></div>
+</section>
+<section class="page" id="shopping">
+<h1>Lista zakupów</h1><p class="muted">Odhacz produkty w sklepie. Możesz dopisać własne. Lista zostaje zapisana.</p><div class="card"><div id="shoppingList" class="checklist"></div><div class="btnrow"><input id="newItem" type="text" placeholder="Dodaj produkt…" /><button class="btn" onclick="addShoppingItem()">Dodaj</button><button class="btn secondary" onclick="resetShopping()">Odznacz wszystko</button></div></div>
+</section>
+<section class="page" id="progress">
+<h1>Postępy</h1><p class="muted">Mierz się rano, po toalecie, w podobnych warunkach. Patrz na średnią tygodniową.</p>
+<div class="card"><h2>Dodaj pomiar</h2><div class="progressrow"><label>Data <input type="date" id="measureDate"></label><label>Waga (kg) <input type="number" step=".1" id="weight" placeholder="np. 85.2"></label><label>Talia (cm) <input type="number" step=".1" id="waist" placeholder="opcjonalnie"></label></div><div class="btnrow"><button class="btn" onclick="saveMeasure()">Zapisz pomiar</button></div></div>
+<div class="card"><h2>Wykres masy ciała</h2><canvas id="weightChart" height="220" style="width:100%;max-width:100%"></canvas><p class="muted">Wykres pokazuje zapisane pomiary.</p></div><div class="card"><h2>Historia pomiarów</h2><div id="measureHistory"></div></div>
+</section>
+
+<section class="page" id="calendar">
+<h1>Kalendarz treningowy</h1><p class="muted">Plan tygodniowy i oznaczanie wykonanych treningów. Powiadomienia działają, gdy aplikacja/przeglądarka jest aktywna; system może ograniczać działanie w tle.</p>
+<div class="card"><div class="progressrow"><label>Miesiąc <input type="month" id="calMonth"></label><button class="btn secondary" onclick="renderCalendar()">Pokaż</button></div><div id="calendarGrid"></div></div>
+<div class="card"><h2>Przypomnienia</h2><div class="progressrow"><label>Godzina <input type="time" id="reminderTime" value="17:30"></label><button class="btn" onclick="enableReminders()">Włącz przypomnienia</button><button class="btn secondary" onclick="disableReminders()">Wyłącz</button></div><p id="reminderStatus" class="muted"></p><div class="notice">Przypomnienia w tej wersji sprawdzają się, kiedy aplikacja jest otwarta. Aby mieć pewne powiadomienia nawet po zamknięciu, potrzebna byłaby wersja z instalacją/PWA i usługą powiadomień.</div></div>
+</section>
+<section class="page" id="foodlog">
+<h1>Licznik kalorii i makro</h1><p class="muted">Dodawaj produkty i posiłki. Wpisy zapisują się w urządzeniu.</p>
+<div class="card"><h2>Dzisiejszy cel</h2><div class="kpis"><div class="kpi"><strong>3200</strong><span>kcal</span></div><div class="kpi"><strong>170 g</strong><span>białko</span></div><div class="kpi"><strong>90 g</strong><span>tłuszcze</span></div></div>
+<div class="card"><h2>Dodaj pozycję</h2><div class="grid"><label>Produkt / posiłek<input type="text" id="foodName" placeholder="np. ryż z kurczakiem"></label><label>Kalorie<input type="number" id="foodKcal" placeholder="kcal"></label><label>Białko (g)<input type="number" id="foodProtein" placeholder="g"></label><label>Węglowodany (g)<input type="number" id="foodCarbs" placeholder="g"></label><label>Tłuszcze (g)<input type="number" id="foodFat" placeholder="g"></label></div><div class="btnrow"><button class="btn" onclick="addFood()">Dodaj</button><button class="btn secondary" onclick="clearTodayFood()">Usuń dzisiejsze wpisy</button></div></div>
+<div class="card"><h2>Dzisiejsze spożycie</h2><div id="foodSummary"></div><div id="foodEntries"></div></div>
+</section>
+</main><footer>FORMA • Twoje dane zapisują się lokalnie na tym urządzeniu.</footer>
+<script>
+const plans={
+A:[["Wyciskanie sztangi leżąc",4,"8–10"],["Przysiad ze sztangą",3,"8–10"],["Wiosłowanie sztangą",3,"10"],["Wyciskanie hantli siedząc",3,"10"],["Uginanie ramion (hantle)",3,"12"],["Plank",3,"40–60 s"]],
+B:[["Martwy ciąg rumuński",3,"8–10"],["Wyciskanie hantli skos",3,"10"],["Wiosłowanie hantlą jednorącz",3,"10–12"],["Wykroki z hantlami",2,"10 / noga"],["Unoszenie hantli bokiem",3,"12–15"],["Uginanie młotkowe",2,"12"],["Dead bug",3,"10 / strona"]],
+C:[["Przysiad goblet",3,"12"],["Wyciskanie sztangi leżąc",3,"8–10"],["Wiosłowanie sztangą",3,"10"],["Hip thrust ze sztangą",3,"12"],["Francuskie wyciskanie hantla",2,"12"],["Uginanie ramion ze sztangą",2,"12"],["Unoszenie nóg leżąc",3,"12–15"]]};
+function showPage(p){document.querySelectorAll('.page').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.page===p));if(p==='log')renderLog();if(p==='diet')renderMenu();if(p==='shopping')renderShopping();if(p==='progress'){renderMeasures();drawWeightChart()}if(p==='calendar')renderCalendar();if(p==='foodlog')renderFood();window.scrollTo({top:0,behavior:'smooth'})}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+function renderWorkout(){let k=document.getElementById('workoutSelect').value;document.getElementById('workoutContent').innerHTML='<h2>Trening '+k+'</h2><table><tr><th>Ćwiczenie</th><th>Serie</th><th>Powtórzenia</th></tr>'+plans[k].map(e=>`<tr><td>${e[0]}</td><td>${e[1]}</td><td>${e[2]}</td></tr>`).join('')+'</table>'}
+const menus={
+1:[["Śniadanie","Płatki owsiane 100 g, napój sojowy 300 ml, banan, masło orzechowe 20 g"],["Posiłek w pracy","Kurczak 200 g, ryż 120 g (suchy), warzywa, oliwa"],["Przed treningiem","Pieczywo 150 g, twaróg bez laktozy 150 g, owoc"],["Kolacja","Jajka 3 szt., ziemniaki 400 g, sałatka"]],
+2:[["Śniadanie","4 jajka, pieczywo 150 g, pomidor"],["Posiłek w pracy","Wołowina 200 g, kasza 120 g (sucha), warzywa"],["Przed treningiem","Jogurt bez laktozy, płatki 70 g, banan"],["Kolacja","Twaróg bez laktozy 250 g, pieczywo, warzywa"]],
+3:[["Śniadanie","Owsianka 100 g, napój sojowy, jabłko, orzechy 20 g"],["Posiłek w pracy","Kurczak 200 g, makaron 120 g (suchy), sos pomidorowy"],["Przed treningiem","Bułki 2, szynka, owoc"],["Kolacja","Omlet 4 jajka, pieczywo, warzywa"]],
+4:[["Śniadanie","Kanapki: pieczywo 160 g, twaróg bez laktozy, warzywa"],["Posiłek w pracy","Schab 200 g, ziemniaki 450 g, surówka"],["Przed treningiem","Banan, owsianka 70 g z napojem sojowym"],["Kolacja","Ryż 100 g, tuńczyk, kukurydza, warzywa"]],
+5:[["Śniadanie","Płatki 100 g, napój sojowy, banan, masło orzechowe"],["Posiłek w pracy","Kurczak 200 g, kasza gryczana 120 g, warzywa"],["Przed treningiem","Pieczywo, 3 jajka, owoc"],["Kolacja","Twaróg bez laktozy 250 g, ziemniaki 350 g, warzywa"]],
+6:[["Śniadanie","Jajecznica 4 jajka, pieczywo, warzywa"],["Posiłek w pracy","Gulasz wołowy 200 g, ryż 120 g, warzywa"],["Przed treningiem","Jogurt bez laktozy, banan, płatki 60 g"],["Kolacja","Kanapki z kurczakiem, warzywa, oliwa"]],
+7:[["Śniadanie","Owsianka 100 g, napój sojowy, owoce, orzechy"],["Posiłek w pracy","Pieczony kurczak 200 g, ziemniaki 450 g, warzywa"],["Przed treningiem / przekąska","Bułki, twaróg bez laktozy, owoc"],["Kolacja","Makaron, 3 jajka, warzywa, oliwa"]]};
+function renderMenu(){let d=document.getElementById('menuDay').value;let state=JSON.parse(localStorage.menuDone||'{}');document.getElementById('menuContent').innerHTML='<div class="checklist" style="margin-top:14px">'+menus[d].map((m,i)=>`<label class="checkitem ${state[d+'-'+i]?'done':''}"><input type="checkbox" ${state[d+'-'+i]?'checked':''} onchange="toggleMeal(${d},${i},this.checked)"><span><b>${m[0]}</b><br>${m[1]}</span></label>`).join('')+'</div>'}
+function toggleMeal(d,i,v){let s=JSON.parse(localStorage.menuDone||'{}');s[d+'-'+i]=v;localStorage.menuDone=JSON.stringify(s);renderMenu()}
+const defaultShopping=[["Białko","Kurczak / filet"],["Białko","Wołowina lub schab"],["Białko","Jajka"],["Białko","Twaróg bez laktozy"],["Białko","Jogurt bez laktozy"],["Białko","Tuńczyk"],["Węglowodany","Płatki owsiane"],["Węglowodany","Ryż"],["Węglowodany","Kasza gryczana"],["Węglowodany","Makaron"],["Węglowodany","Pieczywo / bułki"],["Węglowodany","Ziemniaki"],["Dodatki","Napój sojowy"],["Dodatki","Masło orzechowe"],["Dodatki","Oliwa"],["Warzywa i owoce","Banany"],["Warzywa i owoce","Jabłka / inne owoce"],["Warzywa i owoce","Pomidor, ogórek, sałata"],["Warzywa i owoce","Warzywa mrożone"],["Warzywa i owoce","Cebula, czosnek"],["Suplementy","Kreatyna monohydrat"]].map((x,i)=>({id:i,name:x[1],cat:x[0],done:false}));
+function getShop(){return JSON.parse(localStorage.shopItems||JSON.stringify(defaultShopping))}
+function renderShopping(){let arr=getShop();let cats=[...new Set(arr.map(x=>x.cat))];document.getElementById('shoppingList').innerHTML=cats.map(c=>`<div><h3>${c}</h3>${arr.filter(x=>x.cat===c).map(x=>`<label class="checkitem ${x.done?'done':''}"><input type="checkbox" ${x.done?'checked':''} onchange="shopToggle(${x.id},this.checked)"><span>${x.name}</span></label>`).join('')}</div>`).join('')}
+function shopToggle(id,v){let a=getShop();a.find(x=>x.id===id).done=v;localStorage.shopItems=JSON.stringify(a);renderShopping()}
+function addShoppingItem(){let n=document.getElementById('newItem').value.trim();if(!n)return;let a=getShop();a.push({id:Date.now(),name:n,cat:'Moje produkty',done:false});localStorage.shopItems=JSON.stringify(a);document.getElementById('newItem').value='';renderShopping()}
+function resetShopping(){let a=getShop().map(x=>({...x,done:false}));localStorage.shopItems=JSON.stringify(a);renderShopping()}
+function getLogs(){return JSON.parse(localStorage.logs||'[]')}
+function renderLog(){let k=document.getElementById('logWorkout').value;document.getElementById('logExercises').innerHTML=plans[k].map((e,i)=>`<div class="exercise"><b>${e[0]}</b><div class="muted">Plan: ${e[1]} serie × ${e[2]}</div><table><tr><th>Ciężar (kg)</th><th>Powtórzenia</th></tr><tr><td><input type="number" step="0.5" id="lw${i}" placeholder="kg"></td><td><input type="text" id="lr${i}" placeholder="np. 10/10/9"></td></tr></table></div>`).join('')}
+document.getElementById('logWorkout').onchange=renderLog;
+function saveWorkoutLog(){let k=document.getElementById('logWorkout').value;let items=plans[k].map((e,i)=>({exercise:e[0],weight:document.getElementById('lw'+i).value,reps:document.getElementById('lr'+i).value})).filter(x=>x.weight||x.reps);if(!items.length){alert('Wpisz przynajmniej jeden wynik.');return}let logs=getLogs();logs.unshift({date:document.getElementById('logDate').value||new Date().toISOString().slice(0,10),workout:k,items});localStorage.logs=JSON.stringify(logs);renderLog();renderHistory();alert('Trening zapisany!')}
+function renderHistory(){let a=getLogs();document.getElementById('history').innerHTML=a.length?a.map((x,i)=>`<div class="exercise"><b>${x.date} • Trening ${x.workout}</b><table><tr><th>Ćwiczenie</th><th>Ciężar</th><th>Powtórzenia</th></tr>${x.items.map(y=>`<tr><td>${y.exercise}</td><td>${y.weight||'—'} kg</td><td>${y.reps||'—'}</td></tr>`).join('')}</table><button class="btn danger" onclick="deleteLog(${i})">Usuń wpis</button></div>`).join(''):'<p class="muted">Brak zapisów. Po treningu dodaj pierwszy wpis.</p>'}
+function deleteLog(i){let a=getLogs();a.splice(i,1);localStorage.logs=JSON.stringify(a);renderHistory()}
+function clearHistory(){if(confirm('Usunąć całą historię treningów?')){localStorage.logs='[]';renderHistory()}}
+function getMeasures(){return JSON.parse(localStorage.measures||'[]')}
+function saveMeasure(){let w=document.getElementById('weight').value;if(!w){alert('Podaj wagę.');return}let a=getMeasures();a.unshift({date:document.getElementById('measureDate').value||new Date().toISOString().slice(0,10),weight:w,waist:document.getElementById('waist').value});localStorage.measures=JSON.stringify(a);document.getElementById('weight').value='';document.getElementById('waist').value='';renderMeasures()}
+function renderMeasures(){let a=getMeasures();document.getElementById('measureHistory').innerHTML=a.length?'<table><tr><th>Data</th><th>Waga</th><th>Talia</th></tr>'+a.map(x=>`<tr><td>${x.date}</td><td>${x.weight} kg</td><td>${x.waist||'—'} cm</td></tr>`).join('')+'</table>':'<p class="muted">Dodaj pierwszy pomiar.</p>';drawWeightChart()}
+const tasks=['Wypij kreatynę 5 g','Zjedz 4 posiłki','Wypij wodę regularnie','Zadbaj o sen'];
+function renderTasks(){let d=new Date().toISOString().slice(0,10),s=JSON.parse(localStorage.tasks||'{}');document.getElementById('todayTasks').innerHTML=tasks.map((t,i)=>`<label class="checkitem ${s[d+'-'+i]?'done':''}"><input type="checkbox" ${s[d+'-'+i]?'checked':''} onchange="taskToggle(${i},this.checked)"><span>${t}</span></label>`).join('')}
+function taskToggle(i,v){let d=new Date().toISOString().slice(0,10),s=JSON.parse(localStorage.tasks||'{}');s[d+'-'+i]=v;localStorage.tasks=JSON.stringify(s);renderTasks()}
+let today=new Date().toISOString().slice(0,10);document.getElementById('logDate').value=today;document.getElementById('measureDate').value=today;renderWorkout();renderLog();renderHistory();renderMenu();renderShopping();renderMeasures();renderTasks();
+
+function renderCalendar(){
+ const el=document.getElementById('calendarGrid');if(!el)return;
+ let val=document.getElementById('calMonth').value||new Date().toISOString().slice(0,7);document.getElementById('calMonth').value=val;
+ let [yy,mm]=val.split('-').map(Number),first=new Date(yy,mm-1,1),days=new Date(yy,mm,0).getDate(),offset=(first.getDay()+6)%7;
+ let done=JSON.parse(localStorage.calDone||'{}');
+ let labels=['Pon','Wt','Śr','Czw','Pt','Sob','Ndz'];
+ let cells=labels.map(x=>`<div style="text-align:center;font-weight:700;color:var(--muted);padding:6px">${x}</div>`).join('');
+ for(let n=0;n<offset;n++)cells+='<div></div>';
+ for(let d=1;d<=days;d++){
+   let date=`${yy}-${String(mm).padStart(2,'0')}-${String(d).padStart(2,'0')}`,dow=(new Date(yy,mm-1,d).getDay()+6)%7,work=dow===0?'A':dow===2?'B':dow===4?'C':'';
+   cells+=`<button class="btn ${done[date]?'secondary':''}" style="min-height:68px;padding:5px;background:${done[date]?'#c8e58c':work?'#e6ede5':'#fff'};color:#183523;border:1px solid #dbe4da" onclick="calendarToggle('${date}')"><b>${d}</b><br>${work?`Tr. ${work}`:done[date]?'✓':'—'}${done[date]?' ✓':''}</button>`;
+ }
+ el.innerHTML=`<div style="display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px">${cells}</div><p class="muted">Plan: poniedziałek A, środa B, piątek C. Kliknij dzień, aby oznaczyć wykonanie / odznaczyć.</p>`;
+}
+function calendarToggle(date){let s=JSON.parse(localStorage.calDone||'{}');s[date]=!s[date];localStorage.calDone=JSON.stringify(s);renderCalendar()}
+function enableReminders(){
+ if(!('Notification' in window)){document.getElementById('reminderStatus').textContent='Ta przeglądarka nie obsługuje powiadomień.';return}
+ Notification.requestPermission().then(permission=>{
+  if(permission==='granted'){localStorage.reminders='on';localStorage.reminderTime=document.getElementById('reminderTime').value;document.getElementById('reminderStatus').textContent='Powiadomienia włączone. Aplikacja musi być otwarta, aby przypomnienie zostało sprawdzone.';checkReminder();}
+  else document.getElementById('reminderStatus').textContent='Brak zgody na powiadomienia. Możesz ją zmienić w ustawieniach przeglądarki.';
+ });
+}
+function disableReminders(){localStorage.reminders='off';document.getElementById('reminderStatus').textContent='Przypomnienia wyłączone.'}
+function checkReminder(){
+ if(localStorage.reminders!=='on'||!('Notification' in window)||Notification.permission!=='granted')return;
+ let t=localStorage.reminderTime||'17:30',now=new Date(),key=now.toISOString().slice(0,10)+'-'+t;
+ if(now.getHours()===Number(t.split(':')[0])&&now.getMinutes()===Number(t.split(':')[1])&&localStorage.reminded!==key){
+  let dow=(now.getDay()+6)%7,train=dow===0?'Trening A':dow===2?'Trening B':dow===4?'Trening C':'Dzień regeneracji';
+  new Notification('FORMA — czas na plan',{body:train==='Dzień regeneracji'?'Dziś regeneracja. Zadbaj o posiłki i sen.':train+' — przygotuj sprzęt i rozgrzewkę.'});localStorage.reminded=key;
+ }
+}
+setInterval(checkReminder,30000);
+function foodData(){return JSON.parse(localStorage.foodEntries||'[]')}
+function addFood(){
+ let name=document.getElementById('foodName').value.trim(),k=Number(document.getElementById('foodKcal').value||0),pval=Number(document.getElementById('foodProtein').value||0),c=Number(document.getElementById('foodCarbs').value||0),f=Number(document.getElementById('foodFat').value||0);
+ if(!name){alert('Wpisz nazwę produktu/posiłku');return}
+ let arr=foodData();arr.push({date:new Date().toISOString().slice(0,10),name,kcal:k,protein:pval,carbs:c,fat:f});localStorage.foodEntries=JSON.stringify(arr);
+ ['foodName','foodKcal','foodProtein','foodCarbs','foodFat'].forEach(id=>document.getElementById(id).value='');renderFood();
+}
+function renderFood(){
+ let today=new Date().toISOString().slice(0,10),arr=foodData().filter(x=>x.date===today),sum={kcal:0,protein:0,carbs:0,fat:0};
+ arr.forEach(x=>{sum.kcal+=x.kcal;sum.protein+=x.protein;sum.carbs+=x.carbs;sum.fat+=x.fat});
+ let pct=Math.min(100,Math.round(sum.kcal/3200*100));
+ document.getElementById('foodSummary').innerHTML=`<div class="kpis"><div class="kpi"><strong>${sum.kcal} / 3200</strong><span>kcal • ${pct}% celu</span></div><div class="kpi"><strong>${sum.protein} / 170 g</strong><span>białko</span></div><div class="kpi"><strong>${sum.carbs} g</strong><span>węglowodany</span></div></div><div style="height:12px;background:#e5ebe3;border-radius:10px;overflow:hidden"><div style="height:100%;width:${pct}%;background:#5c8b55"></div></div><p>Tłuszcze: <b>${sum.fat} / 90 g</b></p>`;
+ document.getElementById('foodEntries').innerHTML=arr.length?'<table><tr><th>Posiłek</th><th>Kcal</th><th>B</th><th>W</th><th>T</th></tr>'+arr.map((x,i)=>`<tr><td>${x.name}<button class="btn danger" style="padding:4px 8px;margin-left:5px" onclick="deleteFood(${i})">×</button></td><td>${x.kcal}</td><td>${x.protein}</td><td>${x.carbs}</td><td>${x.fat}</td></tr>`).join('')+'</table>':'<p class="muted">Brak wpisów na dziś. Dodaj pierwszy posiłek.</p>';
+}
+function deleteFood(i){let today=new Date().toISOString().slice(0,10),all=foodData(),inds=all.map((x,n)=>x.date===today?n:null).filter(n=>n!==null);all.splice(inds[i],1);localStorage.foodEntries=JSON.stringify(all);renderFood()}
+function clearTodayFood(){if(confirm('Usunąć wszystkie dzisiejsze wpisy jedzenia?')){let today=new Date().toISOString().slice(0,10);localStorage.foodEntries=JSON.stringify(foodData().filter(x=>x.date!==today));renderFood()}}
+function drawWeightChart(){
+ const canvas=document.getElementById('weightChart');if(!canvas)return;let arr=getMeasures().slice().reverse().filter(x=>Number(x.weight));
+ let ctx=canvas.getContext('2d'),w=canvas.width=canvas.clientWidth*devicePixelRatio,h=canvas.height=220*devicePixelRatio;ctx.scale(devicePixelRatio,devicePixelRatio);let cw=canvas.clientWidth,ch=220;ctx.clearRect(0,0,cw,ch);
+ if(arr.length<2){ctx.font='14px system-ui';ctx.fillStyle='#657269';ctx.fillText('Dodaj co najmniej 2 pomiary, aby zobaczyć wykres.',10,30);return}
+ let vals=arr.map(x=>Number(x.weight)),min=Math.min(...vals)-.5,max=Math.max(...vals)+.5,plotW=cw-45,plotH=ch-45;
+ ctx.strokeStyle='#dfe6dd';ctx.lineWidth=1;for(let i=0;i<4;i++){let y=15+i*plotH/3;ctx.beginPath();ctx.moveTo(35,y);ctx.lineTo(cw-8,y);ctx.stroke()}
+ ctx.font='12px system-ui';ctx.fillStyle='#657269';for(let i=0;i<4;i++){let val=max-i*(max-min)/3;ctx.fillText(val.toFixed(1),2,19+i*plotH/3)}
+ ctx.strokeStyle='#315941';ctx.lineWidth=3;ctx.beginPath();vals.forEach((v,i)=>{let x=35+i*plotW/(vals.length-1),y=15+(max-v)*plotH/(max-min);if(i===0)ctx.moveTo(x,y);else ctx.lineTo(x,y)});ctx.stroke();
+ vals.forEach((v,i)=>{let x=35+i*plotW/(vals.length-1),y=15+(max-v)*plotH/(max-min);ctx.fillStyle='#c8e58c';ctx.beginPath();ctx.arc(x,y,4,0,Math.PI*2);ctx.fill()});
+}
+
+// enhanced initial setup
+const currentMonth=new Date().toISOString().slice(0,7);document.getElementById("calMonth").value=currentMonth;renderCalendar();renderFood();if(localStorage.reminders==="on"){document.getElementById("reminderTime").value=localStorage.reminderTime||"17:30";document.getElementById("reminderStatus").textContent="Przypomnienia są włączone.";}window.addEventListener("resize",drawWeightChart);drawWeightChart();
+</script></body></html>
